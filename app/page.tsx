@@ -1,6 +1,6 @@
 // src/app/page.tsx
 
-// ⛔️ 注意！這裡「沒有」"use client";
+// ⛔️ 注意！這裡「沒有」"use client"; 
 // 
 // 這代表它是一個「伺服器元件」
 // 它在伺服器（Node.js環境）上執行！
