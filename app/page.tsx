@@ -1,65 +1,48 @@
-import Image from "next/image";
+// src/app/page.tsx
 
-export default function Home() {
+// ⛔️ 注意！這裡「沒有」"use client";
+// 
+// 這代表它是一個「伺服器元件」
+// 它在伺服器（Node.js環境）上執行！
+
+import Counter from "@/components/Counter"; // 👈 從 components 匯入我們的計數器
+
+export default function HomePage() {
+
+  // 這行 log 會在哪裡顯示？ 
+  // 答案：VS Code 終端機！ (因為這是伺服器元件)
+  console.log("HomePage 伺服器元件正在執行...");
+
+  // 這是我們的 "Server Action" (伺服器動作)
+  async function handleServerAction() {
+    "use server"; // 👈 標記這是一個「伺服器動作」
+
+    // 這是您未來要寫入 D1 資料庫的地方
+    console.log("伺服器動作被觸發了！ (只會在 VS Code 終端機顯示)");
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main style={{ padding: '50px', fontSize: '20px' }}>
+      <h1>這是一個「伺服器元件」(page.tsx)</h1>
+      <p>它在伺服器上渲染，只送 HTML 到瀏覽器。</p>
+
+      <hr style={{ margin: '20px 0' }} />
+
+      {/* 我們在「伺服器元件」中，
+        載入了我們的「客戶端元件」
+        這就是 App Router 的標準模式！
+      */}
+      <Counter />
+
+      <hr style={{ margin: '20px 0' }} />
+
+      <h2>這是一個「伺服器動作」表單</h2>
+      <form action={handleServerAction}>
+        <button type="submit" style={{ padding: '10px', fontSize: '18px' }}>
+          觸發伺服器動作
+        </button>
+      </form>
+
+    </main>
   );
 }
